@@ -1,0 +1,40 @@
+.menu {
+    border: 10px;
+    border-style: solid;
+    display: flex;
+    max-width: 1000px;
+    margin: auto;
+    justify-content: center;
+    align-content: stretch;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;    
+}
+
+.menu > * {
+    margin: 30px;
+}
+
+.contact {
+    border: 10px;
+    border-style: solid;
+    display: flex;
+    max-width: 1000px;
+    margin: auto;
+    justify-content: center;
+    align-content: stretch;
+    justify-content: space-between;
+    margin-top: 5px;   
+}
+
+.contact > * {
+    margin: 10px;
+}
+
+input:valid {
+    background-color: palegreen;
+}
+
+input:invalid {
+    background-color: lightpink;
+}
