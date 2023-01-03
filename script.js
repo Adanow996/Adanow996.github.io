@@ -5,6 +5,7 @@ const volume_field = document.getElementById('volume');
 const name_field = document.getElementById('name');
 const container = document.getElementById('container');
 const sort_input = document.getElementById('sort');
+const sort_button = document.getElementById('button_sort');
 let measurements = [];
 
 function add_contact(beer_name, price, percentage, volume, date){
@@ -87,4 +88,4 @@ function sort(){
 load_contracts_from_storage();
 add_button.addEventListener('click', add_user_contract);
 add_button.addEventListener('click', save_contracts);
-sort_input.addEventListener('change', sort);
+sort_button.addEventListener('click', sort);
