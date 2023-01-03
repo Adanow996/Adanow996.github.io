@@ -3,70 +3,54 @@ const price_field = document.getElementById('price');
 const percentage_field = document.getElementById('concentration');
 const volume_field = document.getElementById('volume');
 const name_field = document.getElementById('name');
-let counter = 0
+let measurements = [];
 
-function add_contact(){
-    console.log(price_field);
-    if(!price_field.checkValidity() || !percentage_field.checkValidity() || !volume_field.checkValidity()){
-        return;
-    }
-    console.log("Add");
+function add_contact(beer_name, price, percentage, volume){
     contact = document.createElement('div');
     contact.classList.add("contact");
-    contact.name = "s" + counter;
+    contact.name = "s" + measurements.length;
     document.body.appendChild(contact);
-    names = document.createElement('div');
-    names.innerHTML =  name_field.value + "<br>Cena: \t" + price_field.value + " Procenty: \t" + percentage_field.value + " Objętość: " + volume_field.value + "<br>Moc: " + (volume_field.value * percentage_field.value / 100.0 / price_field.value).toFixed(3) + " g / zł";
-    contact.appendChild(names);
+    description = document.createElement('div');
+    description.innerHTML =  beer_name + "<br>Cena: \t" + price + " Procenty: \t" + percentage+ " Objętość: " + volume + "<br>Moc: " + (volume * percentage / 100.0 / price).toFixed(3) + " g / zł";
+    contact.appendChild(description);
     remove = document.createElement('button');
     remove.innerHTML = "Usuń";
     contact.appendChild(remove);
     remove.addEventListener('click', remove_contact);
-    // document.cookie = "s" + counter + "=" + name_field.value + " " + price_field.value + " " + percentage_field.value + " " + volume_field.value;
-    counter++;
-    // console.log("s" + counter + "=" + contact.innerHTML)
-    // console.log("document.cookie = " + document.cookie);
+    measurements.push([beer_name, price, percentage, volume, measurements.length])
 }
 
-function save_contract(){
-    document.cookie = "s" + counter + "=" + name_field.value + " " + price_field.value + " " + percentage_field.value + " " + volume_field.value;
+function add_user_contract(){
+    if(!price_field.checkValidity() || !percentage_field.checkValidity() || !volume_field.checkValidity()){
+        return;
+    }
+    add_contact(name_field.value, price_field.value, percentage_field.value, volume_field.value);
+    save_contracts();
+}
+
+function save_contracts(){
+    localStorage.setItem("measurements", JSON.stringify(measurements));
 }
 
 function remove_contact(e){
-    console.log("Remove");
-    console.log(e.currentTarget.parentElement);
-    console.log(e.currentTarget.parentElement.name);
     document.body.removeChild(e.currentTarget.parentElement);
-
-    document.cookie = e.currentTarget.parentElement.name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT'
+    name_to_remove = e.currentTarget.parentElement.name.substring(1);
+    measurements = measurements.filter(x => x[4] != name_to_remove);
+    save_contracts();
 }
 
-function load_cookies() {
-    var cookies = document.cookie.split(';');
-    cookies[0] = " " + cookies[0];
-    for(var i = 0; i < cookies.length; i++) {
-       cookie = cookies[i].split("=");
-       if(cookie.length != 2){
-              continue;
-       }
-       cookie_name = cookie[0];
-       data = cookie[1].split(" ");
-       console.log(cookie_name);
-       if(/s[0-9]+/.test(cookie_name)){
-            console.log("Cookie substing:|" + cookie_name + "|" + cookie_name.substring(2) + "|" + parseInt(cookie_name.substring(2)) + "|");
-            counter = parseInt(cookie_name.substring(2));
-            console.log("Counter: " + counter);
-           name_field.value = data[0];
-           price_field.value = data[1];
-           percentage_field.value = data[2];
-           volume_field.value = data[3];
-           add_contact();
-       }
+function load_contracts(){
+    measurements_stored = JSON.parse(localStorage.getItem("measurements"));
+    if(measurements_stored == null){
+        measurements_stored = [];
     }
-    return "ret";
+    for (var i = 0; i < measurements_stored.length; i++){
+        add_contact(measurements_stored[i][0], measurements_stored[i][1], measurements_stored[i][2], measurements_stored[i][3]);
+    }
 }
 
-add_button.addEventListener('click', add_contact);
-add_button.addEventListener('click', save_contract);
-load_cookies();
 
+load_contracts();
+
+add_button.addEventListener('click', add_user_contract);
+add_button.addEventListener('click', save_contracts);
