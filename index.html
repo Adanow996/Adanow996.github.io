@@ -1,61 +1,26 @@
-<!DOCTYPE HTML>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--BOOTSRAP-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+
+    <!-- Latest compiled JavaScript -->
+    <!--MQTT-->
+    <script src = "script.js" defer></script>
+    <!--APP-->    
+    <title>Masaraksz</title>
 </head>
-
 <body>
-    <div class="menu">
-        <div>    
-            Cena (zł):
-            <input type="number" step="0.01" id="price" required="required">
-        </div>
-
-        <div>
-            Stężenie (%):
-            <input type="number" step="0.1" id="concentration" required="required">
-        </div>
-
-        <div>
-            Objętośc (ml):
-            <input type="number" id="volume" required="volume">
-        </div>
-
-        <div>
-            Nazwa:
-            <input type="text" id="name" required="name" value="Brak">
-        </div>
-        <div>
-            <select id="sort">
-                <option value="d">Sortuj datą</option>
-                
-                <option value="rc">Sortuj rosnąco ceną</option>
-                <option value="mc">Sortuj malejąco ceną</option>
-
-                <option value="ro">Sortuj rosnąco objętością</option>
-                <option value="mo">Sortuj malejąco objętością</option>
-
-                <option value="rs">Sortuj rosnąco stężeniem</option>
-                <option value="ms">Sortuj malejąco stężeniem</option>
-
-                <option value="rm">Sortuj rosnąco mocą</option>
-                <option value="mm">Sortuj malejąco mocą</option>
-
-                <option value="n">Sortuj nazwą</option>
-            </select>
-            <button id="button_sort">Sortuj</button>
-        </div>
-
-        <button id="button_add">Policz</button>
-    </div>
-    <div id="container">
-
-
-    </div>
-
-
-    <script src="script.js" defer></script>
+    <div class="container">
+        <h1>My First Bootstrap Page</h1>
+        <p>This is some text.</p>
+        <button type="button" id="connect">Primary</button>
+      </div>
 </body>
 </html>
